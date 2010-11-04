@@ -1,28 +1,28 @@
 /*
- * yGetMan - a YUI Get.script queue manager for squirrels and space-fish.
+ * sQueue - a YUI Get.script queue manager for squirrels and space-fish.
  * URL: http://povert.com/fun/ygetman/
  * License: http://povert.com/fun/ygetman/license.txt
  * Version: 1. (0.x releases are for people who believe in fractions)
  *
- * yGetMan allows you to request that a script be loaded, but not if
+ * sQueue allows you to request that a script be loaded, but not if
  * it's already been loaded.
  *
  * Requires YUI's Get and the YAHOO global object.
  * 
  * Usage:
  *
- * yGetMan.get('script.js', callback);
+ * sQueue.get('script.js', callback);
  *
  * Passing arrays work as well:
  *
- * yGetMan.get(['script1.js', 'script2.js', 'script3.js'], callback);
+ * sQueue.get(['script1.js', 'script2.js', 'script3.js'], callback);
  *
  * Bugs:
  * - The same file requested absolutely vs. relative will be requested
  *   both times.  Will be addressed in version 3.dog.  I believe in
  *   dog fractions.
  */
-var yGetMan = function() {
+var sQueue = function() {
 	var _queue = {};
 	var _addToQueue = function(url,cb) {
 		_queue[url] = {
@@ -65,7 +65,7 @@ var yGetMan = function() {
 				a.splice(i);
 			}
 		};
-		yGetMan.get(script, function(){
+		sQueue.get(script, function(){
 			if (a.length > 0) {
 				_getMultiple(a, cb);
 			} else {

@@ -7,16 +7,16 @@
 		<script type="text/javascript" src="http://yui.yahooapis.com/2.7.0/build/get/get-min.js" ></script>
 		<script type="text/javascript" src="http://yui.yahooapis.com/2.7.0/build/dragdrop/dragdrop-min.js"></script>
 		<script type="text/javascript" src="http://yui.yahooapis.com/2.7.0/build/logger/logger-min.js"></script>
-		<script type="text/javascript" src="yGetMan.js"></script>
+		<script type="text/javascript" src="sQueue.js"></script>
 	</head>
 	<body class="yui-skin-sam">
 		<script type="text/javascript" charset="utf-8">
 			var myLogReader = new YAHOO.widget.LogReader();
-			yGetMan.get('test1.js', function(){rojoGato('test1.js');});
-			yGetMan.get('test1.js', function(){rojoGato('duplicate test1.js');});
-			yGetMan.get(['test3.js','test2.js', 'test3.js'], function(){rojoGato('Test for multiple')});
+			sQueue.get('test1.js', function(){rojoGato('test1.js');});
+			sQueue.get('test1.js', function(){rojoGato('duplicate test1.js');});
+			sQueue.get(['test3.js','test2.js', 'test3.js'], function(){rojoGato('Test for multiple')});
 			// Wait 5 seconds, giving the script a chance to load, to test a request when it's been loaded.
-			setTimeout(function() {yGetMan.get('test1.js', function(){rojoGato('Another test1.js');});}, 5000);
+			setTimeout(function() {sQueue.get('test1.js', function(){rojoGato('Another test1.js');});}, 5000);
 		</script>
     </body>
 </html>
