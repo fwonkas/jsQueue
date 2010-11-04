@@ -1,0 +1,1 @@
+YAHOO.log('test2.js log');
