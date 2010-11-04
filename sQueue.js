@@ -31,9 +31,12 @@ var sQueue = function() {
 		_appendCallback(_queue[url], function() {YAHOO.log('finished loading (' + url + ')');cb();});
 		YAHOO.util.Get.script(url, {
 			onSuccess: function() {
+				var cbLen = _queue[url].callback.length,
+				    i = 0;
 				_queue[url].status = 'complete';
 				YAHOO.log('executing callbacks');
-				for (var i=0;i < _queue[url].callback.length; i++) {
+				// These should run in order.
+				for (;i < cbLen; i+=1) {
 					_queue[url].callback[i]();
 				}
 			},
@@ -58,9 +61,10 @@ var sQueue = function() {
 		}
 	};
 	var _getMultiple = function(a, cb) {
-		var script = a.shift();
+		var script = a.shift(),
+		    i = a.length - 1;
 		// If the same script is requested more than once, toss the extras
-		for (var i=0; i < a.length; i++) {
+		for (; i >= 0; i-=1){
 			if (script == a[i]) {
 				a.splice(i);
 			}
