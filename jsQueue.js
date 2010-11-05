@@ -1,28 +1,28 @@
 /*
- * sQueue - a YUI Get.script queue manager for squirrels and space-fish.
+ * jsQueue - a YUI Get.script queue manager for squirrels and space-fish.
  * URL: http://povert.com/fun/ygetman/
  * License: http://povert.com/fun/ygetman/license.txt
  * Version: 1. (0.x releases are for people who believe in fractions)
  *
- * sQueue allows you to request that a script be loaded, but not if
+ * jsQueue allows you to request that a script be loaded, but not if
  * it's already been loaded.
  *
  * Requires YUI's Get and the YAHOO global object.
  * 
  * Usage:
  *
- * sQueue.get('script.js', callback);
+ * jsQueue.get('script.js', callback);
  *
  * Passing arrays work as well:
  *
- * sQueue.get(['script1.js', 'script2.js', 'script3.js'], callback);
+ * jsQueue.get(['script1.js', 'script2.js', 'script3.js'], callback);
  *
  * Bugs:
  * - The same file requested absolutely vs. relative will be requested
  *   both times.  Will be addressed in version 3.dog.  I believe in
  *   dog fractions.
  */
-var sQueue = function() {
+var jsQueue = function() {
 	var _queue = {};
 	var _addToQueue = function(url,cb) {
 		_queue[url] = {
@@ -69,7 +69,7 @@ var sQueue = function() {
 				a.splice(i);
 			}
 		};
-		sQueue.get(script, function(){
+		jsQueue.get(script, function(){
 			if (a.length > 0) {
 				_getMultiple(a, cb);
 			} else {
@@ -81,6 +81,11 @@ var sQueue = function() {
 		get: function(url, cb) {
 			if (YAHOO.lang.isString(url)) {
 				url = YAHOO.lang.trim(url);
+				var choppedUrl = url.replace(document.location.protocol + '//' + document.location.host, '');
+				if (choppedUrl.match(/^\//)) {
+					url = choppedUrl;
+				}
+				console.log(url);
 				if (_queue[url]) {
 			        // In queue; append to callback
 			        YAHOO.log('In queue; append to callback (' + url + ')');
